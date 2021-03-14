@@ -1,0 +1,19 @@
+.globalContainer {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.globalSidebar {
+    height: calc(100vh - 55px);
+    position: fixed;
+    z-index: 999;
+    width: 200px;
+}
+
+.globalMain {
+    margin-left: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

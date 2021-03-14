@@ -1,11 +1,20 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import { useDispatch } from 'react-redux';
+import globalReducer, { initialState as globalInitialState } from '../features/global/slice';
+
+const initialState = {
+  global: globalInitialState,
+}
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    global: globalReducer,
   },
+  preloadedState: initialState
 });
+
+export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch = () => useDispatch<AppDispatch>();
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<ReturnType = void> = ThunkAction<
