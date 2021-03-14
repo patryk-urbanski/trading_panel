@@ -17,7 +17,7 @@ const fetchFromApi = async ({
 
     try {
         const response = await fetch(path, requestObject);
-
+        console.log(response)
         if (response.ok) {
             const result = await response.json();
 
@@ -37,7 +37,7 @@ const fetchFromApi = async ({
                 message: response.statusText,
             };
             return {
-                httpError: error,
+                httpError: response.statusText,
             };
         }
     } catch(error) {
@@ -55,8 +55,16 @@ const apiCalls = () => {
         })
     };
 
+    const getSectorPerformance = () => {
+        return fetchFromApi({
+            path: "https://alpha-vantage.p.rapidapi.com/query?function=SECTOR",
+            httpMethod: "GET"
+        })
+    }
+
     return {
-        getTimeSeries
+        getTimeSeries,
+        getSectorPerformance
     }
 };
 

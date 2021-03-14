@@ -1,10 +1,14 @@
 import React from 'react';
 
-const Dashboard = ({
+import ViewContainer from '../../components/ViewContainer';
 
-}) => {
+import SectorPerformanceSlider from '../../features/sectorPerformance/SectorPerformanceSlider';
+
+const Dashboard = () => {
     return (
-        <h1>elo</h1>
+        <ViewContainer>
+            <SectorPerformanceSlider />
+        </ViewContainer>
     );
 };
 

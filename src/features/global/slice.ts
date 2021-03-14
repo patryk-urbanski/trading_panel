@@ -1,11 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface Global {
+type Global = {
     isLoading: boolean;
+    error: string | null;
 };
 
 export const initialState: Global = {
-    isLoading: false
+    isLoading: false,
+    error: null,
 };
 
 const global = createSlice({
@@ -16,11 +18,15 @@ const global = createSlice({
 
             state.isLoading = action.payload;
         },
+        setError(state, action: PayloadAction<string | null>) {
+
+            state.error = action.payload;
+        },
     },
 });
 
 export const {
-    setIsLoading,
+    setIsLoading, setError
 } = global.actions;
 
 export default global.reducer;
