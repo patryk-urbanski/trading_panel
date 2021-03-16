@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 
 import AutoSlider from '../../../components/AutoSlider';
+import ButtonGroup from '../../../components/ButtonGroup';
+
+import { sectorPerformanceTimeRangeEnum } from '../../../config/enums';
 
 import { useFetch } from '../../../hooks';
-import { getSeries } from '../../../redux/methods/timeSeries';
 import { getSectorPerformance } from '../../../redux/methods/sectorPerformance';
+
+import styles from './index.module.scss';
 
 const mapDispatch = {
     getSectorPerformance,
-    getSeries
 };
 
 const connector = connect(null, mapDispatch);
@@ -21,18 +24,32 @@ type Props = ReduxProps & {
 };
 
 const SectorPerformanceSlider = ({
-    children,
     getSectorPerformance,
-    getSeries
 }: Props) => {
+    const [ timeRange, setTimeRange ] = useState<string | number>("Day")
     const sectorPerformance = useFetch(getSectorPerformance);
-    console.log(sectorPerformance)
-    // useEffect(() => {
-    //     getSectorPerformance()
-    // }, [])
-    return (
-        <h1>elo</h1>
-    );
+
+    const generatedSlides = sectorPerformance && Object.keys(sectorPerformance[sectorPerformanceTimeRangeEnum[timeRange]]).map(sector => ({
+        label: sector,
+        value: sectorPerformance?.[sectorPerformanceTimeRangeEnum[timeRange]][sector]
+    }));
+
+    const timeRangeOptions = Object.keys(sectorPerformanceTimeRangeEnum).map(key => ({ id: key, label: key }))
+
+    return sectorPerformance ? (
+        <React.Fragment>
+            <AutoSlider 
+                slides={generatedSlides}
+            />
+            <aside className={styles.timeRangePickerContainer}>
+                <ButtonGroup
+                    options={timeRangeOptions}
+                    performSelect={setTimeRange}
+                    currentSelection={timeRange}
+                />
+            </aside>
+        </React.Fragment>
+    ): null
 };
 
 export default connector(SectorPerformanceSlider);

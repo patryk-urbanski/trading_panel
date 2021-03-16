@@ -21,10 +21,10 @@ const ErrorModal = ({
     return (
         <Modal isOpen={isOpen} toggle={toggleModal}>
             <ModalHeader color='danger'>
-                <span>Error</span>
+                <span>Oups! Somethig gone wrong... don't panic tho.</span>
             </ModalHeader>
             <ModalBody>
-                <span>elo</span>
+                {`It seems like we got: ${error}. It's a free API plan, go easy with it.` }
             </ModalBody>
             <ModalFooter>
                 <Button

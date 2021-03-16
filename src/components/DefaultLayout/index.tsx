@@ -8,8 +8,7 @@ import { clearError } from '../../redux/methods/generic';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import ErrorModal from '../ErrorModal';
-
-import { Spinner } from 'reactstrap';
+import DefaultLoader from '../DefaultLoader';
 
 import withScreenSize from '../../hoc/withScreenSize';
 
@@ -47,7 +46,7 @@ const DefaultLayout = ({
                 </aside>
                 <main className={styles.globalMain}>
                     {children}
-                    {isLoading && <Spinner size='lg' color='primary' />}
+                    <DefaultLoader isLoading={isLoading} />
                 </main>
             </div>
             <ErrorModal

@@ -32,10 +32,6 @@ const fetchFromApi = async ({
                 };
             }
         } else if (response.status !== 200) {
-            const error = {
-                status: response.status,
-                message: response.statusText,
-            };
             return {
                 httpError: response.statusText,
             };
