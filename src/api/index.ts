@@ -1,66 +1,34 @@
-interface Props {
-    path: string,
-    httpMethod: string,
-}
-
-const fetchFromApi = async ({
-    path,
-    httpMethod,
-}: Props ) => {
-    const requestObject: any = {
-        "method": httpMethod,
-        "headers": {
-            "x-rapidapi-key": process.env.REACT_APP_API_KEY,
-            "x-rapidapi-host": "alpha-vantage.p.rapidapi.com"
-        }
-    }
-
-    try {
-        const response = await fetch(path, requestObject);
-        console.log(response)
-        if (response.ok) {
-            const result = await response.json();
-
-            if(result) {
-                if (result.error) {
-                    throw Error(JSON.stringify(result));
-                }
-                return result 
-            } else {
-                return {
-                    error: `Unexpected result shape: ${JSON.stringify(result)}`,
-                };
-            }
-        } else if (response.status !== 200) {
-            return {
-                httpError: response.statusText,
-            };
-        }
-    } catch(error) {
-        return {
-            unhandledError: error
-        };
-    }
-};
+import { fetchFromApi } from './utils';
 
 const apiCalls = () => {
-    const getTimeSeries = () => {
-        return fetchFromApi({
-            path: "https://alpha-vantage.p.rapidapi.com/query?interval=5min&function=TIME_SERIES_INTRADAY&symbol=MSFT&datatype=json&output_size=compact",
-            httpMethod: "GET"
-        })
-    };
-
     const getSectorPerformance = () => {
         return fetchFromApi({
             path: "https://alpha-vantage.p.rapidapi.com/query?function=SECTOR",
-            httpMethod: "GET"
+            httpMethod: "GET",
+            service: 'alpha',
         })
-    }
+    };
+
+    const getStockMoversByRegion = (region: string) => {
+        return fetchFromApi({
+            path: `https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-movers?region=${region}&lang=en-US&start=0&count=6`,
+            httpMethod: "GET",
+            service: 'yahoo',
+        })
+    };
+
+    const getPopularPortfolioReturns = () => {
+        return fetchFromApi({
+            path: 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/get-popular-watchlists',
+            httpMethod: "GET",
+            service: 'yahoo',
+        })
+    };
 
     return {
-        getTimeSeries,
-        getSectorPerformance
+        getSectorPerformance,
+        getStockMoversByRegion,
+        getPopularPortfolioReturns
     }
 };
 

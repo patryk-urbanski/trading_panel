@@ -1,0 +1,1 @@
+export const availableRegions = ['ASIA, EU, US, AU, BR, CA, FR, DE, HK, IT, ES, GB, IN, SG'];

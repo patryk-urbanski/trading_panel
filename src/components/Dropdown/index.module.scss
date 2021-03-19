@@ -1,0 +1,26 @@
+@import '../../styles/index.scss';
+
+.dropdown {
+    &Menu {
+        max-height: 220px;
+        overflow-y: scroll;
+        width: 100%;
+    }
+
+    &Toggler {
+        width: 100%;
+        min-width: 200px;
+        overflow: hidden;
+    }
+
+    &Item {
+        min-width: 180px;
+        max-width: 100%;
+        min-height: 44px;
+    }
+}
+
+.label {
+    white-space: normal;
+    right: 0 !important;
+}

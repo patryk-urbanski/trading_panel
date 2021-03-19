@@ -7,8 +7,8 @@ type Option = {
 };
 
 type Props = {
-    options: Option[];
-    performSelect: React.Dispatch<SetStateAction<string | number>>;
+    options: Option[],
+    performSelect: React.Dispatch<SetStateAction<string | number>>,
     className?: string,
     currentSelection: string | number;
     btnClass?: string,
