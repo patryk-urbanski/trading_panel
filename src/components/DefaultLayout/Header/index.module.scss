@@ -1,3 +1,9 @@
+@import '../../../styles/index.scss';
+
+.container { 
+    background-color: $background_light;
+}
+
 .navItem {
     padding: 0 20px;
     margin: 0 20px;

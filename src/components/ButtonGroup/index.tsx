@@ -11,13 +11,15 @@ type Props = {
     performSelect: React.Dispatch<SetStateAction<string | number>>;
     className?: string,
     currentSelection: string | number;
+    btnClass?: string,
 };
 
 const ButtonGroup = ({
     options,
     performSelect,
     className,
-    currentSelection
+    currentSelection,
+    btnClass,
 }: Props) => {
 
     const handleSelect = (option: Option) => () => {
@@ -32,7 +34,7 @@ const ButtonGroup = ({
                         key={`${option}--option`}
                         onClick={handleSelect(option)}
                         outline={currentSelection !== option.id ? true : false}
-                        color='secondary'
+                        className={btnClass}
                     >
                         {option.label}
                     </Button>

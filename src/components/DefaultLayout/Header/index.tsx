@@ -11,7 +11,7 @@ import styles from './index.module.scss';
 const Header = () => {
     
     return (
-            <Navbar color='dark' dark>
+            <Navbar className={styles.container}>
                 <NavbarBrand>Logo</NavbarBrand>
                 <Nav>
                     {

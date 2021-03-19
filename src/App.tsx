@@ -4,9 +4,6 @@ import { Provider } from 'react-redux';
 
 import RootRouter from './router/RootRouter';
 
-import './App.scss';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
 const App = () => {
   return (
     <Provider store={store}>

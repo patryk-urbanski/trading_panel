@@ -4,15 +4,17 @@ import styles from './index.module.scss';
 
 interface Slide {
     label: string,
-    value: string | number
+    value: string
 };
 
 interface Props {
-    slides: Slide[] | null
+    slides: Slide[] | null,
+    adjustValueColor?: (value: string) => string
 }
 
 const AutoSlider = ({
-    slides
+    slides,
+    adjustValueColor
 }: Props) => {
     return (
         <div className={styles.container}>
@@ -20,8 +22,16 @@ const AutoSlider = ({
                 {
                     slides?.map((slide, index) => (
                         <div className={styles.slideElement} key={`${index}-${slide.label}-slide`}>
-                            <span className={styles.slideLabel}>{slide.label}</span>
-                            <span className={styles.slideValue}>{slide.value}</span>
+                            <span
+                                className={styles.slideLabel}
+                            >   {slide.label}
+                            </span>
+                            <span
+                                className={styles.slideValue}
+                                style={{color: adjustValueColor && adjustValueColor(slide.value)}}
+                            >
+                                {slide.value}
+                            </span>
                         </div>
                     ))
                 }

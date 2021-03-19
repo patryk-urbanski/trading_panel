@@ -36,9 +36,12 @@ const SectorPerformanceSlider = ({
 
     const timeRangeOptions = Object.keys(sectorPerformanceTimeRangeEnum).map(key => ({ id: key, label: key }))
 
+    const generateValueColor = (value: string)  => parseFloat(value) > 0 ? '#46eb34' : '#eb4034';
+
     return sectorPerformance ? (
         <React.Fragment>
-            <AutoSlider 
+            <AutoSlider
+                adjustValueColor={generateValueColor}
                 slides={generatedSlides}
             />
             <aside className={styles.timeRangePickerContainer}>
@@ -46,6 +49,7 @@ const SectorPerformanceSlider = ({
                     options={timeRangeOptions}
                     performSelect={setTimeRange}
                     currentSelection={timeRange}
+                    btnClass={styles.timeRangeButtons}
                 />
             </aside>
         </React.Fragment>
