@@ -7,7 +7,7 @@ import { clearError } from '../../redux/methods/generic';
 
 import Header from './Header';
 import Sidebar from './Sidebar';
-import ErrorModal from '../ErrorModal';
+import ErrorModal from '../../features/ErrorModal';
 import DefaultLoader from '../DefaultLoader';
 
 import withScreenSize from '../../hoc/withScreenSize';
@@ -41,9 +41,9 @@ const DefaultLayout = ({
         <div className={styles.globalContainer}>
             <Header />
             <div>
-                <aside className={styles.globalSidebar}>
+           {/* {     <aside className={styles.globalSidebar}>
                     <Sidebar />
-                </aside>
+                </aside>} */}
                 <main className={styles.globalMain}>
                     {children}
                     <DefaultLoader isLoading={isLoading} />

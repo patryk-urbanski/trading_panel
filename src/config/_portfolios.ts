@@ -1,0 +1,1 @@
+export const portfolioResultOptions = [ 'winners', 'loosers'];

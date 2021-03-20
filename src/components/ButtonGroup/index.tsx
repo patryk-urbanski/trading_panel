@@ -29,9 +29,9 @@ const ButtonGroup = ({
     return (
         <Group size='sm' className={className}>
             {
-                options.map(option =>
+                options.map((option, index) =>
                     <Button
-                        key={`${option}--option`}
+                        key={`${option}-${index}-option`}
                         onClick={handleSelect(option)}
                         outline={currentSelection !== option.id ? true : false}
                         className={btnClass}
