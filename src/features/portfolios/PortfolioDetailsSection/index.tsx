@@ -47,7 +47,7 @@ const PortfolioDetailsSection = ({
                                 <PortfolioDetailsRow
                                     { ...quote}
                                     key={`${quote.messageBoardId}-${index}-tile`}
-                                    rowColor={`hsl(132deg, 100%, ${generateColorLightness(index, arr.length, 40, 10)}%)`}
+                                    rowColor={`rgba(98, 171, 82, ${generateColorLightness(index, arr.length)})`}    
                                 />
                             ))
                         }
@@ -60,7 +60,7 @@ const PortfolioDetailsSection = ({
                                 <PortfolioDetailsRow
                                     { ...quote}
                                     key={`${quote.messageBoardId}-${index}-tile`}
-                                    rowColor={`hsl(250deg, 100%, ${generateColorLightness(index, arr.length, 40, 10)}%)`}
+                                    rowColor={`rgba(163, 69, 69, ${generateColorLightness(index, arr.length)})`}                                
                                 />
                             ))
                         }

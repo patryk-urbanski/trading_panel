@@ -16,8 +16,8 @@ const PortfolioDetailsRow = ({
 
     return (
         <div className={styles.row} style={{ backgroundColor: rowColor }}>
-            <span>{shortName}</span>
-            <span>{regularMarketChangePercent.toFixed(2)}</span>
+            <span className={styles.name}>{shortName}</span>
+            <span className={styles.value}>{regularMarketChangePercent.toFixed(2)}</span>
         </div>
     );
 };

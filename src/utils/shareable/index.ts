@@ -1,6 +1,6 @@
-export const generateColorLightness = (index: number, numberOfTiles: number, initalLightness = 50, finalLightness = 20) => {
+export const generateColorLightness = (index: number, numberOfTiles: number, initalLightness = 1, finalLightness = 0) => {
     const step = (initalLightness - finalLightness) / numberOfTiles;
-
+    console.log(initalLightness - (step * index))
     return initalLightness - (step * index); 
 };
 
