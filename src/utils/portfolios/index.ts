@@ -1,22 +1,27 @@
-import { TPortfolios, TPortfolioDetails } from '../../types/portfolios';
+import { TPortfolios, TQuotes } from '../../types/portfolios';
 
 export const constructReturnsTiles = (portfolioList: TPortfolios, portfolioSelection: string | number) => {
+    const isPositiveResults = portfolioSelection === 'winners';
+
     const { finance } = portfolioList;
 
     const portfolios = finance?.result[0].portfolios.map(({ pfId, name, shortDescription, dailyPercentGain, userId }) => ({
         pfId, name, shortDescription, dailyPercentGain, userId
     }));
 
-    const positiveReturns = portfolios?.filter(({ dailyPercentGain }) => dailyPercentGain > 0).sort((prev, next) => next.dailyPercentGain - prev.dailyPercentGain);
-    const negativeReturns = portfolios?.filter(({ dailyPercentGain }) => dailyPercentGain < 0).sort((prev, next) => prev.dailyPercentGain - next.dailyPercentGain);
-
-    return portfolioSelection === 'winners' ? positiveReturns : negativeReturns;
+    return portfolios?.filter(({ dailyPercentGain }) => isPositiveResults ? dailyPercentGain > 0 : dailyPercentGain < 0)
+        .sort((prev, next) => isPositiveResults ? next.dailyPercentGain - prev.dailyPercentGain : prev.dailyPercentGain - next.dailyPercentGain);
 };
 
-export const constructDetailsRows = (portfolioDetails: TPortfolioDetails) => {
-    const { finance } = portfolioDetails;
+export const constructDetailsRows = (quotes: TQuotes, isPositiveResults = true) => {
 
-    const portfolioStockTickers = Object.keys(finance?.result[0].quotes).map(key => key);
+    const essentials =  Object.keys(quotes).map(key => ({
+        shortName: quotes[key].shortName,
+        regularMarketChangePercent: quotes[key].regularMarketChangePercent,
+        messageBoardId: quotes[key].messageBoardId,
+    }));
 
-    // return (({ shortName, regularMarketChangePercent, messageBoardId }) => ({ shortName, regularMarketChangePercent, messageBoardId }))
+    return essentials
+        .filter(({ regularMarketChangePercent }) => isPositiveResults ? regularMarketChangePercent > 0 : regularMarketChangePercent < 0 )
+        .sort((prev, next) => isPositiveResults ? next.regularMarketChangePercent - prev.regularMarketChangePercent : prev.regularMarketChangePercent - next.regularMarketChangePercent);
 }

@@ -1,0 +1,11 @@
+.row {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:last-of-type {
+        border-radius: 0 0 10px 10px;
+    }
+}

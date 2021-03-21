@@ -5,9 +5,7 @@ import DefaultLayout from '../../components/DefaultLayout';
 
 import Dashboard from '../../views/Dashboard';
 
-const RootRouter = ({
-
-}) => {
+const RootRouter = () => {
 
     return (
         <Router>

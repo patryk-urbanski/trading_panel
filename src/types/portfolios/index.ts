@@ -12,16 +12,12 @@ export type TPortfolios = {
     };
 };
 
-export type TPortfolioDetails = {
-    finance?: {
-        result: Array<{
-            quotes: {
-                [key: string]: {
-                    shortName: string,
-                    regularMarketChangePercent: number,
-                    messageBoardId: string,
-                }
-            }
-        }>
-    };
+type TPortfolioQuote = {
+    shortName: string,
+    regularMarketChangePercent: number,
+    messageBoardId: string,
+};
+
+export type TQuotes = {
+    [key: string]: TPortfolioQuote;
 };

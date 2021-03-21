@@ -8,6 +8,8 @@ import PortfolioDetailsSection from '../../features/portfolios/PortfolioDetailsS
 import PortfoliosResultsSection from '../../features/portfolios/PortfoliosResultsSection';
 import SectorPerformanceSlider from '../../features/sectorPerformance/SectorPerformanceSlider';
 
+import styles from './index.module.scss';
+
 const mapStateToProps = (state: RootState) => ({
     selectedPortfolio: state.portfolios.selectedPortfolio,
 });
@@ -22,10 +24,13 @@ const Dashboard = ({
     return (
         <ViewContainer>
             <SectorPerformanceSlider />
-            <PortfoliosResultsSection />
-            {
-                selectedPortfolio ? <PortfolioDetailsSection /> : <h1>elo</h1>
-            }
+            <main className={styles.main}>
+                <PortfoliosResultsSection />
+                {
+                    selectedPortfolio ? <PortfolioDetailsSection /> : <h1>elo</h1>
+                }
+            </main>
+            
         </ViewContainer>
     );
 };

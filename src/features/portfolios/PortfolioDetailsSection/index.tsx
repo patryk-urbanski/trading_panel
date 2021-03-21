@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 
 import { RootState } from '../../../redux/store';
 
-import { useFetch } from '../../../hooks';
-import { getPortfolioDetails, selectPortfolio } from '../../../redux/methods/portfolios';
-
+import { getPortfolioDetails } from '../../../redux/methods/portfolios';
+import { isObjectFilled, generateColorLightness } from '../../../utils/shareable';
 import { constructDetailsRows } from '../../../utils/portfolios';
+
+import PortfolioDetailsRow from '../../../components/portfolios/PortfolioDetailsRow';
 
 import styles from './index.module.scss';
 
@@ -16,33 +17,55 @@ const mapDispatch = {
 
 const mapStateToProps = (state: RootState) => ({
     selectedPortfolio: state.portfolios.selectedPortfolio,
+    portfolioQuotes: state.portfolios.portfolioQuotes,
 });
 
 const connector = connect(mapStateToProps, mapDispatch);
 
 type ReduxProps = ConnectedProps<typeof connector>
 
-type Props = ReduxProps & {
-    children?: React.ReactNode,
-};
-
 const PortfolioDetailsSection = ({
     selectedPortfolio,
-    getPortfolioDetails
-}: Props) => {
-    const portfolioDetails = useFetch(getPortfolioDetails, selectedPortfolio, [], true);
+    getPortfolioDetails,
+    portfolioQuotes,
+}: ReduxProps) => {
 
-    return portfolioDetails ? (
-        <div className={styles.continaer}>
+    useEffect(() => {
+        if(isObjectFilled(selectedPortfolio)) {
+            getPortfolioDetails(selectedPortfolio)
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedPortfolio])
+
+    return isObjectFilled(portfolioQuotes) ? (
+        <div className={styles.container}>
             <div className={styles.wrapper}>
-                {
-                    constructDetailsRows(portfolioDetails)?.map(({shortName, regularMarketChangePercent, messageBoardId }) => (
-                        <div key={`${messageBoardId}-detailRow`}>
-                            <span>{shortName}</span>
-                            <span>{regularMarketChangePercent}</span>
-                        </div>
-                    ))
-                }
+                <div className={styles.scroller}>
+                    <div className={styles.rowContainer}>
+                        {
+                            constructDetailsRows(portfolioQuotes).map((quote, index, arr) => (
+                                <PortfolioDetailsRow
+                                    { ...quote}
+                                    key={`${quote.messageBoardId}-${index}-tile`}
+                                    rowColor={`hsl(132deg, 100%, ${generateColorLightness(index, arr.length, 40, 10)}%)`}
+                                />
+                            ))
+                        }
+                    </div>
+                </div>
+                <div className={styles.scroller}>
+                    <div className={styles.rowContainer}>
+                        {
+                            constructDetailsRows(portfolioQuotes, false).map((quote, index, arr) => (
+                                <PortfolioDetailsRow
+                                    { ...quote}
+                                    key={`${quote.messageBoardId}-${index}-tile`}
+                                    rowColor={`hsl(250deg, 100%, ${generateColorLightness(index, arr.length, 40, 10)}%)`}
+                                />
+                            ))
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     ) : null;

@@ -1,0 +1,38 @@
+@import '../../../styles/colors.scss';
+
+.container {
+    width: 700px;
+    max-height: 70vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: $background_light;
+    border-radius: 10px;
+    padding: 40px 0;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-evenly;
+    height: 100%;
+}
+
+.scroller {
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.rowContainer {
+    height: 100%;
+    width: 300px;
+}

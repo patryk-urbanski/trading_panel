@@ -9,7 +9,7 @@ import { generateColorLightness } from '../../../utils/shareable';
 import { constructReturnsTiles } from '../../../utils/portfolios';
 
 import Dropdown from '../../../components/Dropdown';
-import PortfolioResultTile from './PortfolioResultTile';
+import PortfolioResultTile from '../../../components/portfolios/PortfolioResultTile';
 
 import  styles from './index.module.scss';
 
