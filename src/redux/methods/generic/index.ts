@@ -1,4 +1,4 @@
-import { setIsLoading, setError } from '../../../features/global/slice';
+import { setIsLoading, setError } from '../../../features/globalStates/slice';
 
 interface Payload {
     payload: boolean | string | null,
@@ -11,7 +11,7 @@ export const getData = async (dispatch: (action: Payload) => void, apiCall: (par
     dispatch(setIsLoading(false))
 
     const { error, httpError, unhandledError } = result;
-    console.log(result)
+
     if (error || httpError || unhandledError ) {
         if(unhandledError) {
             //TODO: establish proper method to report unhandler errors

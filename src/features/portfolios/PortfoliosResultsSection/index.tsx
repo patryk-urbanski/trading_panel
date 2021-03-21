@@ -4,8 +4,9 @@ import { connect, ConnectedProps } from 'react-redux';
 import { portfolioResultOptions } from '../../../config';
 
 import { useFetch } from '../../../hooks';
-import { getPopularPortfolioReturns } from '../../../redux/methods/stockMovers';
-import { generateColorLightness } from '../../../utils/components';
+import { getPopularPortfolioReturns, selectPortfolio } from '../../../redux/methods/portfolios';
+import { generateColorLightness } from '../../../utils/shareable';
+import { constructReturnsTiles } from '../../../utils/portfolios';
 
 import Dropdown from '../../../components/Dropdown';
 import PortfolioResultTile from './PortfolioResultTile';
@@ -14,6 +15,7 @@ import  styles from './index.module.scss';
 
 const mapDispatch = {
     getPopularPortfolioReturns,
+    selectPortfolio,
 };
 
 const connector = connect(null, mapDispatch);
@@ -24,47 +26,20 @@ type Props = ReduxProps & {
     children?: React.ReactNode,
 };
 
-type Portfolios = {
-    finance?: {
-        result: Array<{
-            portfolios: Array<{
-                pfId: string,
-                name: string,
-                shortDescription: string,
-                dailyPercentGain: number,
-                userId: string,
-            }>
-        }>;
-    }
-}
-
 const PortfoliosResultsSection = ({
-    getPopularPortfolioReturns
+    getPopularPortfolioReturns,
+    selectPortfolio,
 }: Props) => {
     const [ portfolioSelection, setPortfolioSelection ] = useState<string | number>(portfolioResultOptions[0]);
 
     const portfolios = useFetch(getPopularPortfolioReturns, 'US')
 
-    const constructTiles = (portfolioList: Portfolios) => {
-        const { finance } = portfolioList;
-
-        const portfolios = finance?.result[0].portfolios.map(({ pfId, name, shortDescription, dailyPercentGain, userId }) => ({
-            pfId, name, shortDescription, dailyPercentGain, userId
-        }));
-
-        const positiveReturns = portfolios?.filter(({ dailyPercentGain }) => dailyPercentGain > 0).sort((prev, next) => next.dailyPercentGain - prev.dailyPercentGain);
-        const negativeReturns = portfolios?.filter(({ dailyPercentGain }) => dailyPercentGain < 0).sort((prev, next) => prev.dailyPercentGain - next.dailyPercentGain);
-
-        return portfolioSelection === 'winners' ? positiveReturns : negativeReturns;
-    };
-
     const handleSelectPortfolio = (userId: string, pfId: string) => () => {
-        console.log(userId, pfId)
+        selectPortfolio({ userId, pfId });
     };
 
     const dropdownOptions = portfolioResultOptions.map(option => ({ id: option, label: `Last session's ${option}` }));
 
-    
     return portfolios ? (
         <div className={styles.container}>
             <div className={styles.wrapper}>
@@ -77,7 +52,7 @@ const PortfoliosResultsSection = ({
                 </div>
                 <div className={styles.tilesContainer}>
                     {
-                        constructTiles(portfolios)?.map((tile, index, arr) => (
+                        constructReturnsTiles(portfolios, portfolioSelection)?.map((tile, index, arr) => (
                             <PortfolioResultTile
                                 { ...tile}
                                 onClick={handleSelectPortfolio(tile.userId, tile.pfId)}

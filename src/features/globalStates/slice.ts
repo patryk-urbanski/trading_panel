@@ -1,17 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type Global = {
+type GlobalStates = {
     isLoading: boolean;
     error: string | null;
 };
 
-export const initialState: Global = {
+export const initialState: GlobalStates = {
     isLoading: false,
     error: null,
 };
 
-const global = createSlice({
-    name: 'global',
+const globalStates = createSlice({
+    name: 'globalStates',
     initialState,
     reducers: {
         setIsLoading(state, action: PayloadAction<boolean>) {
@@ -27,6 +27,6 @@ const global = createSlice({
 
 export const {
     setIsLoading, setError
-} = global.actions;
+} = globalStates.actions;
 
-export default global.reducer;
+export default globalStates.reducer;

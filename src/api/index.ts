@@ -25,10 +25,19 @@ const apiCalls = () => {
         })
     };
 
+    const getPortfolioDetails = ({ userId, pfId }: { userId: string, pfId: string }) => {
+        return fetchFromApi({
+            path: `https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/get-watchlist-detail?userId=${userId}&pfId=${pfId}`,
+            httpMethod: "GET",
+            service: 'yahoo',
+        })
+    };
+
     return {
         getSectorPerformance,
         getStockMoversByRegion,
-        getPopularPortfolioReturns
+        getPopularPortfolioReturns,
+        getPortfolioDetails
     }
 };
 

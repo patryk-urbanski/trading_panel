@@ -1,14 +1,17 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
-import globalReducer, { initialState as globalInitialState } from '../features/global/slice';
+import globalReducer, { initialState as globalInitialState } from '../features/globalStates/slice';
+import portfoliosReducer, { initialState as portfoliosInitialState } from '../features/portfolios/slice';
 
 const initialState = {
   global: globalInitialState,
+  portfolios: portfoliosInitialState,
 }
 
 export const store = configureStore({
   reducer: {
     global: globalReducer,
+    portfolios: portfoliosReducer,
   },
   preloadedState: initialState
 });
