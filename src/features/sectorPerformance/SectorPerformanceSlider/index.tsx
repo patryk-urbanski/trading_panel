@@ -3,6 +3,7 @@ import { connect, ConnectedProps } from 'react-redux';
 
 import AutoSlider from '../../../components/AutoSlider';
 import ButtonGroup from '../../../components/ButtonGroup';
+import AdjustableLoader from '../../../components/AdjustableLoader';
 
 import { sectorPerformanceTimeRangeEnum } from '../../../config/enums';
 
@@ -53,7 +54,7 @@ const SectorPerformanceSlider = ({
                 />
             </aside>
         </React.Fragment>
-    ): null
+    ) : <AdjustableLoader className={styles.loader} />
 };
 
 export default connector(SectorPerformanceSlider);

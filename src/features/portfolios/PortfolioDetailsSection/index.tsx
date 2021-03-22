@@ -8,6 +8,7 @@ import { isObjectFilled, generateColorLightness } from '../../../utils/shareable
 import { constructDetailsRows } from '../../../utils/portfolios';
 
 import PortfolioDetailsRow from '../../../components/portfolios/PortfolioDetailsRow';
+import AdjustableLoader from '../../../components/AdjustableLoader';
 
 import styles from './index.module.scss';
 
@@ -68,7 +69,7 @@ const PortfolioDetailsSection = ({
                 </div>
             </div>
         </div>
-    ) : null;
+    ) : <AdjustableLoader className={styles.loader}/>;
 };
 
 export default connector(PortfolioDetailsSection);

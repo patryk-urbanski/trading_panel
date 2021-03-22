@@ -34,3 +34,10 @@
     position: sticky;
     top: 0;
 }
+
+.loader {
+    width: 700px;
+    height: 70vh;
+    background-color: $background_light;
+    border-radius: 10px;
+}

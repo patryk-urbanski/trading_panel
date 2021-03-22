@@ -3,10 +3,13 @@ import { connect, ConnectedProps } from 'react-redux';
 
 import { RootState } from '../../redux/store';
 
+import { isObjectFilled } from '../../utils/shareable';
+
 import ViewContainer from '../../components/ViewContainer';
 import PortfolioDetailsSection from '../../features/portfolios/PortfolioDetailsSection';
 import PortfoliosResultsSection from '../../features/portfolios/PortfoliosResultsSection';
 import SectorPerformanceSlider from '../../features/sectorPerformance/SectorPerformanceSlider';
+import PlaceholderSection from '../../components/PlaceholderSection';
 
 import styles from './index.module.scss';
 
@@ -25,10 +28,19 @@ const Dashboard = ({
         <ViewContainer>
             <SectorPerformanceSlider />
             <main className={styles.main}>
-                <PortfoliosResultsSection />
-                {
-                    selectedPortfolio ? <PortfolioDetailsSection /> : <h1>elo</h1>
-                }
+                <section>
+                    <span className={styles.sectionLabel}>Portfolios performance</span>
+                    <PortfoliosResultsSection />
+                </section>
+                <section>
+                    {
+                        isObjectFilled(selectedPortfolio)
+                            ? <PortfolioDetailsSection />
+                            : <PlaceholderSection containerClassName={styles.placeholderContainer}>
+                                <span className={styles.placeholderLabel}>Select portfolio</span>
+                            </PlaceholderSection> 
+                    }
+                </section>
             </main>
             
         </ViewContainer>

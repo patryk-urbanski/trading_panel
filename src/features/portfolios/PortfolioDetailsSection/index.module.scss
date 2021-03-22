@@ -36,3 +36,10 @@
     height: 100%;
     width: 300px;
 }
+
+.loader {
+    width: 700px;
+    height: 70vh;
+    background-color: $background_light;
+    border-radius: 10px;
+}

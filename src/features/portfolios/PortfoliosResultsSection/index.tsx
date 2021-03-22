@@ -10,6 +10,7 @@ import { constructReturnsTiles } from '../../../utils/portfolios';
 
 import Dropdown from '../../../components/Dropdown';
 import PortfolioResultTile from '../../../components/portfolios/PortfolioResultTile';
+import AdjustableLoader from '../../../components/AdjustableLoader';
 
 import  styles from './index.module.scss';
 
@@ -64,7 +65,7 @@ const PortfoliosResultsSection = ({
                 </div>
             </div>
         </div>
-    ) : null;
+    ) : <AdjustableLoader className={styles.loader} />;
 };
 
 export default connector(PortfoliosResultsSection);

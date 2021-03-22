@@ -1,5 +1,23 @@
+@import '../../styles/colors.scss';
+
+
 .main {
     width: 100%;
     display: flex;
     justify-content: space-evenly;
+}
+
+.sectionLabel {
+    margin: 20px 0;
+}
+
+.placeholderLabel {
+
+}
+
+.placeholderContainer {
+    width: 700px;
+    height: 70vh;
+    background-color: $background_light;
+    border-radius: 10px;
 }
